@@ -172,7 +172,7 @@ pycparser==2.22
 pydantic==2.10.6
 pydantic_core==2.27.2
 pydeck==0.9.1
-pyee==11.1.1
+pyee==12.0.0
 Pygments==2.18.0
 pyheif==0.8.0
 pyparsing==3.1.2
