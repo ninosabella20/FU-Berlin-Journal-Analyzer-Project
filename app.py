@@ -83,7 +83,7 @@ Give one short, positive suggestion that helps me stay centered or feel okay.
     output = llm(
         prompt,
         max_tokens=50,
-        temperature=0.4,
+        temperature=0.6,
         top_p=0.8,
         stop=["</s>"]
     )
@@ -111,8 +111,8 @@ def analyze_journal(data: JournalRequest):
     }
 
 def run_api():
-    uvicorn.run(app, host="0.0.0.0", port=8001)
+    uvicorn.run(app, host="0.0.0.0", port=$PORT)
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", 8000)))
+    uvicorn.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", $PORT)))
 
