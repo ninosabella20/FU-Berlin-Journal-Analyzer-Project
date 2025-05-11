@@ -23,7 +23,6 @@ import nest_asyncio
 import uvicorn
 from fastapi import FastAPI
 from pydantic import BaseModel
-from threading import Thread
 nest_asyncio.apply()
 
 # Load LLM model
@@ -114,5 +113,6 @@ def analyze_journal(data: JournalRequest):
 def run_api():
     uvicorn.run(app, host="0.0.0.0", port=8001)
 
-api_thread = Thread(target=run_api)
-api_thread.start()
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", 8000)))
+
