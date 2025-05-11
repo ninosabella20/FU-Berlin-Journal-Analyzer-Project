@@ -29,14 +29,14 @@ nest_asyncio.apply()
 MODEL_DIR = "MODEL"
 MODEL_FILE = "zephyr-quiklang-3b-4k.Q5_K_M.gguf"
 MODEL_PATH = os.path.join(MODEL_DIR, MODEL_FILE)
-MODEL_DRIVE_ID = "10rP3n6Z1GIniLBX3M7RLjqPL4CVjK2sg"
+MODEL_DRIVE_ID = "1PFnVoQ02CmDF0UgjYXTjtdUnQny0nuU3"
 
 if not os.path.exists(MODEL_PATH):
     os.makedirs(MODEL_DIR, exist_ok=True)
     url = f"https://drive.google.com/uc?id={MODEL_DRIVE_ID}"
     gdown.download(url, MODEL_PATH, quiet=False)
     
-llm = Llama(model_path=MODEL_PATH, n_ctx=4096)
+llm = Llama(model_path=MODEL_PATH, n_ctx=2048)
 
 # Sentiment Analysis pipeline
 
