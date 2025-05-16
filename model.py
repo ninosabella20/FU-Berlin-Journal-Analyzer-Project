@@ -11,6 +11,7 @@ from sklearn.decomposition import LatentDirichletAllocation
 import re
 import spacy
 import nltk
+from logger import logger
 from nltk.corpus import stopwords
 from collections import Counter
 from flask import Flask, request, jsonify
@@ -36,7 +37,7 @@ if not os.path.exists(MODEL_PATH):
     url = f"https://drive.google.com/uc?id={MODEL_DRIVE_ID}"
     gdown.download(url, MODEL_PATH, quiet=False)
     
-llm = Llama(model_path=MODEL_PATH, n_ctx=2048)
+ llm = Llama(model_path=MODEL_PATH, n_ctx=2048)
 
 # Sentiment Analysis pipeline
 
@@ -49,15 +50,21 @@ sentiment_pipeline = pipeline(
     device=device
 )
 
-def get_sentiment(journal_entries: list[str]) -> list[str]:
+def get_sentiment(journal_entries):
+    logger.debug(f"Inside get_sentiment : {journal_entries}")
     emotion_counts = Counter()
     for entry in journal_entries:
+        logger.debug(f"entry : {entry}")
         results = sentiment_pipeline(entry)
+        logger.debug(f"results : {results}")
         for r in results:
+            logger.debug(f"VALUE OF r : {r}")
             emotion_counts[r['label']] += 1
+        logger.debug(f"VALUE OF emotion_counts : {emotion_counts}")
     if emotion_counts:
         top_3 = [label for label, _ in emotion_counts.most_common(3)]
-        return f'{top_3[0]}, {top_3[1]}, {top_3[2]}'
+        return ', '.join(top_3)
+        #return f'{top_3[0]}, {top_3[1]}, {top_3[2]}'   #this line was giving the error since the list had only one emotion
     return "neutral"
 
 def get_themes(journal_entries: list[str], top_n=3) -> list[str]:
@@ -87,6 +94,7 @@ Give one short, positive suggestion that helps me stay centered or feel okay.
         top_p=0.8,
         stop=["</s>"]
     )
+    output = []
     raw_text = output['choices'][0]['text'].strip()
     clean_text = re.sub(r'[^\w\s.,!?\'-]', '', raw_text)
     sentences = re.findall(r'[^.!?]*[.!?]', clean_text)
@@ -99,11 +107,13 @@ class JournalRequest(BaseModel):
     entries: list[str]
 
 @app.post("/analyze")
-def analyze_journal(data: JournalRequest):
-    entries = data.entries
+def analyze_journal(data):
+    logger.debug(f"Inside analyze_journal : {data}")
+    entries = data["entries"]
+    logger.debug(f"entries : {entries}")
     sentiment = get_sentiment(entries)
     themes = get_themes(entries)
-    empathy = get_empathy(entries, sentiment)
+    empathy ="ok" #get_empathy(entries, sentiment)
     return {
         "sentiment": sentiment,
         "themes": themes,
