@@ -19,7 +19,7 @@ import numpy as np
 from rake_nltk import Rake
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from pathlib import Path
-#from llama_cpp import Llama
+from llama_cpp import Llama
 import nest_asyncio
 import uvicorn
 from fastapi import FastAPI
@@ -37,7 +37,7 @@ if not os.path.exists(MODEL_PATH):
     url = f"https://drive.google.com/uc?id={MODEL_DRIVE_ID}"
     gdown.download(url, MODEL_PATH, quiet=False)
     
-# llm = Llama(model_path=MODEL_PATH, n_ctx=2048)
+ llm = Llama(model_path=MODEL_PATH, n_ctx=2048)
 
 # Sentiment Analysis pipeline
 
@@ -58,10 +58,13 @@ def get_sentiment(journal_entries):
         results = sentiment_pipeline(entry)
         logger.debug(f"results : {results}")
         for r in results:
+            logger.debug(f"VALUE OF r : {r}")
             emotion_counts[r['label']] += 1
+        logger.debug(f"VALUE OF emotion_counts : {emotion_counts}")
     if emotion_counts:
         top_3 = [label for label, _ in emotion_counts.most_common(3)]
-        return f'{top_3[0]}, {top_3[1]}, {top_3[2]}'
+        return ', '.join(top_3)
+        #return f'{top_3[0]}, {top_3[1]}, {top_3[2]}'   #this line was giving the error since the list had only one emotion
     return "neutral"
 
 def get_themes(journal_entries: list[str], top_n=3) -> list[str]:
@@ -84,13 +87,13 @@ Give one short, positive suggestion that helps me stay centered or feel okay.
 </s>
 <|assistant|>
 """
-    '''output = llm(
+    output = llm(
         prompt,
         max_tokens=50,
         temperature=0.6,
         top_p=0.8,
         stop=["</s>"]
-    )'''
+    )
     output = []
     raw_text = output['choices'][0]['text'].strip()
     clean_text = re.sub(r'[^\w\s.,!?\'-]', '', raw_text)
