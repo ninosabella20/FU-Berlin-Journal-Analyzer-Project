@@ -110,9 +110,9 @@ def analyze_journal(data: JournalRequest):
         "empathy": empathy
     }
 
-def run_api():
+'''def run_api():
     uvicorn.run(app, host="0.0.0.0", port=$PORT)
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", $PORT)))
+    uvicorn.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", $PORT)))'''
 
