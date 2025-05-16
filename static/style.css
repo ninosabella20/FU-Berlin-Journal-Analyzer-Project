@@ -8,5 +8,8 @@ input {
     margin: 10px;
 }
 button {
+    color: white;
+    background-color: red;
     padding: 10px 20px;
+    
 }
