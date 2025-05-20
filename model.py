@@ -25,6 +25,7 @@ import uvicorn
 from fastapi import FastAPI
 from pydantic import BaseModel
 nest_asyncio.apply()
+nltk.download('punkt_tab')
 
 # Load LLM model
 MODEL_DIR = "MODEL"
@@ -37,7 +38,7 @@ if not os.path.exists(MODEL_PATH):
     url = f"https://drive.google.com/uc?id={MODEL_DRIVE_ID}"
     gdown.download(url, MODEL_PATH, quiet=False)
     
- llm = Llama(model_path=MODEL_PATH, n_ctx=2048)
+llm = Llama(model_path=MODEL_PATH, n_ctx=2048)
 
 # Sentiment Analysis pipeline
 
