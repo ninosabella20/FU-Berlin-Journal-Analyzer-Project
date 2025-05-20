@@ -28,3 +28,24 @@ Steps to clone and push in the repo:
     git push origin <branch-name>
 
 ```
+
+Steps to create the virtual enviroment 
+```
+1) Go to the working directory of the project
+    cd FU-Berlin-Journal-Analyzer-Project
+
+2) Create the virtual environment
+    python -m venv Journal
+
+3) Activate the virtual environment:
+    
+    Windows: venv\Scripts\activate
+    macOS/Linux: source venv/bin/activate
+
+4) Install the requiremnts
+    pip install <package-name>
+
+5) To deactivate 
+    deactivate
+
+```
