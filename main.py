@@ -2,12 +2,15 @@ from flask import Flask, render_template, request,jsonify
 import model
 import json
 from logger import logger
-from dotenv import load_dotenv #load env file
-from models import db, Journal #load the ORM
+from dotenv import load_dotenv
 import os
-from datetime import datetime
+from utils.encryption_utils import set_encryption_key
 
+set_encryption_key()
 load_dotenv() #load env file
+
+from models import db #load the ORM
+from services.journals_service import save_journal_entry
 
 app = Flask(__name__)
 
@@ -29,21 +32,7 @@ def submit():
     emotions = model.analyze_journal(json_payload )
     logger.info(f"emotions : {emotions}")
 
-    #get data from payload
-    sentiment = emotions.get("sentiment")
-    themes = ", ".join(emotions.get("themes", []))
-    empathy = emotions.get("empathy")
-    
-    #map to the ORM
-    journal = Journal(
-        journalInput=daily,
-        sentiment=sentiment, 
-        themes=themes, 
-        empathy=empathy,
-        inputTimestamp=datetime.utcnow())
-    
-    db.session.add(journal)
-    db.session.commit()
+    save_journal_entry(daily, emotions)
 
     return render_template('result.html', name=daily)
 
