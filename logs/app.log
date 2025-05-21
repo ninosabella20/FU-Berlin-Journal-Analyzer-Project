@@ -1,0 +1,15 @@
+2025-05-21 19:35:37,301 - DEBUG - Inside analyze_journal : entries=['I had a great day today, everything went well', 'I feel excited about my new project', "But I'm also a bit nervous about the upcoming deadline"]
+2025-05-21 19:35:37,304 - DEBUG - entries : ['I had a great day today, everything went well', 'I feel excited about my new project', "But I'm also a bit nervous about the upcoming deadline"]
+2025-05-21 19:35:37,304 - DEBUG - Inside get_sentiment : ['I had a great day today, everything went well', 'I feel excited about my new project', "But I'm also a bit nervous about the upcoming deadline"]
+2025-05-21 19:35:37,304 - DEBUG - entry : I had a great day today, everything went well
+2025-05-21 19:35:37,388 - DEBUG - results : [{'label': 'joy', 'score': 0.793261706829071}]
+2025-05-21 19:35:37,388 - DEBUG - VALUE OF r : {'label': 'joy', 'score': 0.793261706829071}
+2025-05-21 19:35:37,389 - DEBUG - VALUE OF emotion_counts : Counter({'joy': 1})
+2025-05-21 19:35:37,389 - DEBUG - entry : I feel excited about my new project
+2025-05-21 19:35:37,427 - DEBUG - results : [{'label': 'excitement', 'score': 0.8392969965934753}]
+2025-05-21 19:35:37,428 - DEBUG - VALUE OF r : {'label': 'excitement', 'score': 0.8392969965934753}
+2025-05-21 19:35:37,428 - DEBUG - VALUE OF emotion_counts : Counter({'joy': 1, 'excitement': 1})
+2025-05-21 19:35:37,428 - DEBUG - entry : But I'm also a bit nervous about the upcoming deadline
+2025-05-21 19:35:37,479 - DEBUG - results : [{'label': 'nervousness', 'score': 0.6261804699897766}]
+2025-05-21 19:35:37,480 - DEBUG - VALUE OF r : {'label': 'nervousness', 'score': 0.6261804699897766}
+2025-05-21 19:35:37,480 - DEBUG - VALUE OF emotion_counts : Counter({'joy': 1, 'excitement': 1, 'nervousness': 1})
