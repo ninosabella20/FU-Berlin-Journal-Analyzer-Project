@@ -108,22 +108,22 @@ class JournalRequest(BaseModel):
     entries: list[str]
 
 @app.post("/analyze")
-def analyze_journal(data):
+def analyze_journal(data: JournalRequest):  
     logger.debug(f"Inside analyze_journal : {data}")
-    entries = data["entries"]
+    entries = data.entries  
     logger.debug(f"entries : {entries}")
     sentiment = get_sentiment(entries)
     themes = get_themes(entries)
-    empathy ="ok" #get_empathy(entries, sentiment)
+    empathy = "ok"  
     return {
         "sentiment": sentiment,
         "themes": themes,
         "empathy": empathy
     }
 
-'''def run_api():
-    uvicorn.run(app, host="0.0.0.0", port=$PORT)
+def run_api():
+    uvicorn.run(app, host="0.0.0.0", port=8000)
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", $PORT)))'''
+    uvicorn.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", 8000)))
 
