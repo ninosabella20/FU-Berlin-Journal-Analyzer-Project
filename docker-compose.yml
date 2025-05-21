@@ -2,6 +2,7 @@ version: "3.9"
 
 services:
   model:
+    container_name: llm-app-model
     build: .
     volumes:
       - .:/app
