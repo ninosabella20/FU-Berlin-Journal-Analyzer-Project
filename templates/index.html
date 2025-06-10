@@ -1,19 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emotion Analyzer</title>
-    <link rel="stylesheet" href="../static/style.css">
-
-    
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Journal Input</title>
+  <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
-    <h1>Welcome to the Daily Dairy</h1>
-    <form action="/submit" method="POST">
-        <label for="daily">What's on your mind Today?</label><br>
-        <input type="text" id="daily" name="daily" required><br>
-        <button type="submit">Submit</button>
-    </form>
+  <div class="container">
+    <div class="sidebar">
+      <div class="title">Journal Entry</div>
+      <div class="date">June 05, 2025</div>
+      <div class="history">
+        <h3>History</h3>
+        <ul id="historyList">
+          <!-- Populated by JS -->
+        </ul>
+      </div>
+    </div>
+    <div class="main-content">
+      <h1>WRITE JOURNAL</h1>
+      <div class="input-section">
+        <div id="journalInputArea" contenteditable="true">Write your journal entry here...</div>
+        
+        <button onclick="saveJournalEntry(document.getElementById('journalInputArea').innerText)">Save Entry</button>
+        <!--<button onclick="window.location.href='static/index.html'">Summary</button>-->
+        <br>
+        <form action="/journal" method="post">
+          <button type="submit">Summaryyy</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="../static/script.js"></script>
 </body>
 </html>

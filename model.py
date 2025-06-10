@@ -69,12 +69,17 @@ def get_sentiment(journal_entries):
     return "neutral"
 
 def get_themes(journal_entries: list[str], top_n=3) -> list[str]:
+    logger.debug(f"Inside get_themes : {journal_entries}")
     text = " ".join(journal_entries)
+    logger.debug(f" text : {text}")
     r = Rake()
     r.extract_keywords_from_text(text)
     themes = [kw for _ , kw in r.get_ranked_phrases_with_scores()[:top_n]]
-    return f'{themes[0]}, {themes[1]}, {themes[2]}'
-
+    logger.debug(f"themes text : {themes}")
+    if themes:
+        top_3 = [label for label, _ in Counter(themes).most_common(3)]
+        return ', '.join(top_3)
+    
 def get_empathy(user_responses, emotions):
     combined_responses = " ".join(user_responses)
     prompt = f"""<|system|>
