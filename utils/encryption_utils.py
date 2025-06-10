@@ -13,8 +13,17 @@ class EncryptionManager:
     def encrypt(self, plaintext: str) -> bytes:
         return self.fernet.encrypt(plaintext.encode())
 
-    def decrypt(self, ciphertext: bytes) -> str:
+    #def decrypt(self, ciphertext: bytes) -> str:
+    #    return self.fernet.decrypt(ciphertext).decode()
+    def decrypt(self, ciphertext):
+        if isinstance(ciphertext, memoryview):
+            ciphertext = ciphertext.tobytes()
+        elif isinstance(ciphertext, str):
+            ciphertext = ciphertext.encode()
+        elif not isinstance(ciphertext, bytes):
+            raise TypeError(f"Unsupported type for decryption: {type(ciphertext)}")
         return self.fernet.decrypt(ciphertext).decode()
+
 
 def set_encryption_key():
     load_dotenv()
