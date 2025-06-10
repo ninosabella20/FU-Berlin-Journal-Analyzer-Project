@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Summary Page</title>
+  <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="sidebar">
+      <div class="title">Summary</div>
+      <div class="date">June 05, 2025</div>
+      <div class="journal-list">
+        <h3>List of Journal Input</h3>
+        <ul id="journalList">
+          <!-- Populated by JS -->
+        </ul>
+      </div>
+    </div>
+    <div class="main-content">
+      <h1>SUMMARY</h1>
+      <div class="charts">
+        <div class="chart">
+          <h3>Word Count</h3>
+          <canvas id="wordCountChart"></canvas>
+        </div>
+        <div class="chart">
+          <h3>Sentiment</h3>
+          <ul>
+            <li>Happy: <span id="happy">0</span></li>
+            <li>Angry: <span id="angry">0</span></li>
+            <li>Anxious: <span id="anxious">0</span></li>
+            <li>Inspired: <span id="inspired">0</span></li>
+            <li>Excited: <span id="excited">0</span></li>
+          </ul>
+        </div>
+        <div class="chart">
+          <h3>Themes</h3>
+          <ul>
+            <li>Studying: <span id="themeStudying">0</span></li>
+            <li>Working: <span id="themeWorking">0</span></li>
+            <li>Reading: <span id="themeReading">0</span></li>
+            <li>Exercising: <span id="themeExercising">0</span></li>
+          </ul>
+        </div>
+        <div class="chart heatmap">
+          <h3>Heat Map (Word Count)</h3>
+          <canvas id="heatMap"></canvas>
+        </div>
+      </div>
+      <div class="input-section">
+        <form action="/" method="post">
+          <button type="submit">Write Journal</button>
+        </form>
+        <div id="inputArea" contenteditable="true">Quick summary notes...</div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../static/script.js"></script>
+</body>
+</html>
